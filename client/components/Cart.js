@@ -17,6 +17,9 @@ class Cart extends React.Component {
           {/* loop with each item */}
           <label htmlFor="quantity">Quantity:</label>
           <input name="quantity" type="number" />
+          <button type="button" onClick>
+            Remove
+          </button>
 
           <button type="submit">Checkout</button>
         </form>
