@@ -1,4 +1,6 @@
 import React, {Component} from 'react'
+import {connect} from 'react-redux'
+import fetchProduct from '../store/product'
 
 export class SingleProduct extends Component {
   constructor(props) {
@@ -21,9 +23,13 @@ export class SingleProduct extends Component {
     quant = quant + 1
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    this.props.fetchProduct(this.props.match.params.productId)
+  }
 
   render() {
+    const {product} = this.props
+
     return (
       <div>
         <div className="singleProductContent">
@@ -32,23 +38,23 @@ export class SingleProduct extends Component {
           </div>
           <div className="singleProductCenterColumn">
             <div className="productHeader">
-              <h1>{this.props.name}</h1>
-              <p>{this.props.vendor.name}</p>
-              <p>{this.props.rating}</p>
+              <h1>{product.name}</h1>
+              <p>{product.name}</p>
+              <p>{product.rating}</p>
             </div>
             <div className="productSpecs">
-              <h2>${this.props.price}</h2>
-              <p>{this.props.modelNumber}</p>
-              <p>{this.props.type}</p>
-              <p>{this.props.condition}</p>
+              <h2>${this.props.product.price}</h2>
+              <p>{product.modelNumber}</p>
+              <p>{product.type}</p>
+              <p>{product.condition}</p>
             </div>
             <div className="productDesc">
-              <p>{this.props.description}</p>
+              <p>{product.description}</p>
             </div>
           </div>
           <div className="singleProductRightColumn">
             <div>
-              <h2>${this.props.price}</h2>
+              <h2>${product.price}</h2>
             </div>
             <div>
               <div>
@@ -70,7 +76,7 @@ export class SingleProduct extends Component {
             </div>
           </div>
         </div>
-        <div>
+        {/* <div className="reviewsContainer">
           <div className="productReviews">
             <div>
               <div>
@@ -88,18 +94,21 @@ export class SingleProduct extends Component {
               to all reviews page
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     )
   }
 }
 
-const mapState = dispatch => {
-  return {}
+const mapState = state => {
+  return {product: state.singleProductReducer}
 }
 
-const mapDispatch = state => {
+const mapDispatch = dispatch => {
   return {
-    addToCart: product => dispatch(addToCart(product))
+    fetchProduct: productId => dispatch(fetchProduct(productId))
+    // addToCart: (product) => dispatch(addToCart(product)),
   }
 }
+
+export default connect(mapState, mapDispatch)(SingleProduct)

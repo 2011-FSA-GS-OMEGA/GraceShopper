@@ -1,17 +1,13 @@
 import axios from 'axios'
 
 // Action Type(s)
-const SET_A_PRODUCT = 'SET_A_PRODUCT'
 const SET_PRODUCTS = 'SET_PRODUCTS'
 const ADD_PRODUCT = 'ADD_PRODUCT'
 const DELETE_PRODUCT = 'DELETE_PRODUCT'
 const EDIT_PRODUCT = 'EDIT_PRODUCT'
 
 // Action Creator(s)
-const setProduct = product => ({
-  type: SET_A_PRODUCT,
-  product
-})
+
 const setProducts = products => ({
   type: SET_PRODUCTS,
   products
@@ -30,14 +26,7 @@ const editProduct = product => ({
 })
 
 // Thunk Creator(s)
-export const fetchProduct = product => async dispatch => {
-  try {
-    const {data} = await axios.get(`/api/products/${product}`)
-    dispatch(setProduct(data))
-  } catch (error) {
-    console.error('Failed to GET /api/products/productId')
-  }
-}
+
 export const fetchProducts = () => async dispatch => {
   try {
     const {data} = await axios.get('/api/products')
@@ -73,11 +62,11 @@ export const updateProduct = product => async dispatch => {
   }
 }
 
+const initialState = []
+
 // 'Product' Reducer
-export default function(state = [], action) {
+export default function allProductsReducer(state = initialState, action) {
   switch (action.type) {
-    case SET_A_PRODUCT:
-      return action.product
     case SET_PRODUCTS:
       return action.products
     case ADD_PRODUCT: {
