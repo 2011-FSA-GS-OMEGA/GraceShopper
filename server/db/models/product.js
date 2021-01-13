@@ -16,17 +16,13 @@ const Product = db.define('product', {
   },
   status: {
     type: Sequelize.ENUM('available', 'out of stock'),
-    defaultValue: 'available',
-    allowNull: false
+    defaultValue: 'available'
   },
   imageUrl: {
-    type: Sequelize.TEXT,
-    validate: {
-      notEmpty: true
-    }
+    type: Sequelize.TEXT
   },
   condition: {
-    type: Sequelize.ENUM('poor', 'new', 'used'),
+    type: Sequelize.ENUM('like-new', 'new', 'used'),
     defaultValue: 'new'
   },
   rating: {
@@ -37,7 +33,7 @@ const Product = db.define('product', {
     type: Sequelize.INTEGER
   },
   description: {
-    type: Sequelize.TEXT
+    type: Sequelize.ARRAY(Sequelize.TEXT)
   }
 })
 

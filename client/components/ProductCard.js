@@ -1,7 +1,7 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 
-const ProductCard = () => {
+const ProductCard = ({product}) => {
   return (
     <div className="card">
       <Link to={`/products/${product.id}`}>
@@ -17,11 +17,6 @@ const ProductCard = () => {
           </div>
         </div>
       </Link>
-      <div className="card-controls">
-        <button className="card-button" type="button">
-          Add to Cart
-        </button>
-      </div>
     </div>
   )
 }

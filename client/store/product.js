@@ -77,7 +77,7 @@ export const updateProduct = product => async dispatch => {
 export default function(state = [], action) {
   switch (action.type) {
     case SET_A_PRODUCT:
-      return action.project
+      return action.product
     case SET_PRODUCTS:
       return action.products
     case ADD_PRODUCT: {
