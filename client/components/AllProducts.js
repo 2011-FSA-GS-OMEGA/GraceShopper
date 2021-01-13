@@ -8,7 +8,6 @@ export class AllProducts extends React.Component {
     this.props.getProducts()
   }
   render() {
-    console.log(this.props)
     const {products} = this.props
     return (
       <div className="component-content">
