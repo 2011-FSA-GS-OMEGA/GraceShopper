@@ -10,7 +10,7 @@ const ProductCard = ({product}) => {
           <div className="card-stats">
             <h2>{product.name}</h2>
             <ul>
-              <li>Price: {product.price}</li>
+              <li>Price: ${product.price}</li>
               <li>Type: {product.type}</li>
               <li>Status: {product.status}</li>
             </ul>
