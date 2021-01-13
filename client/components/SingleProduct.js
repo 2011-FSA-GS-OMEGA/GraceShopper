@@ -1,36 +1,53 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
+// import StarRatings from './react-star-ratings'
+
 import {fetchProduct} from '../store/singleProduct'
+
+const defaultState = {
+  quantity: 1
+}
 
 export class SingleProduct extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      quantity: 1
-    }
+    this.state = defaultState
 
-    // this.handleChange = this.handleChange.bind(this)
+    this.handleChange = this.handleChange.bind(this)
+    this.handleIncrement = this.handleIncrement.bind(this)
+    this.handleDecrement = this.handleDecrement.bind(this)
   }
 
-  // handleChange(e) {
-  //   this.setState({
-  //     [e.target.name]: e.target.value,
-  //   })
-  // }
+  handleChange(e) {
+    this.setState({
+      [e.target.name]: e.target.value
+    })
+  }
 
-  // incrementQuant() {
-  //   let quant = document.querySelector('input').innerText
-  //   quant = quant + 1
-  // }
+  handleIncrement() {
+    this.setState(prevState => {
+      return {
+        quantity: prevState.quantity + 1
+      }
+    })
+  }
+
+  handleDecrement() {
+    if (this.state.quantity > 1)
+      this.setState(prevState => {
+        return {
+          quantity: prevState.quantity - 1
+        }
+      })
+  }
 
   componentDidMount() {
     this.props.fetchSingleProduct(this.props.match.params.productId)
   }
 
   render() {
-    const product = this.props.product
-    console.log(this.props)
-    console.log('what is the product??', product)
+    const {product} = this.props
+    console.log(product.description)
     return (
       <div>
         <div className="singleProductContent">
@@ -44,13 +61,22 @@ export class SingleProduct extends Component {
               <p>{product.rating}</p>
             </div>
             <div className="productSpecs">
-              <h2>${product.price}</h2>
-              <p>{product.modelNumber}</p>
-              <p>{product.type}</p>
-              <p>{product.condition}</p>
+              <h2>Price: ${product.price}</h2>
+              <p>Model Number: {product.modelNumber}</p>
+              <p>Category: {product.type}</p>
+              <p>Condition: {product.condition}</p>
             </div>
             <div className="productDesc">
-              <p>{product.description}</p>
+              <h3>Description:</h3>
+              <ul>
+                {product.description ? (
+                  product.description.map((ele, i) => {
+                    return <li key={i}>{ele}</li>
+                  })
+                ) : (
+                  <p>Loading data ...</p>
+                )}
+              </ul>
             </div>
           </div>
           <div className="singleProductRightColumn">
@@ -58,22 +84,25 @@ export class SingleProduct extends Component {
               <h2>${product.price}</h2>
             </div>
             <div>
-              <div>
+              <div className="quantityBox">
                 <input
-                  type="number"
+                  name="quantity"
+                  type="text"
                   value={this.state.quantity}
-                  name="quantityBox"
+                  onChange={this.handleChange}
                 />
                 <div className="quantityButtons">
-                  <button type="button" onClick={() => incrementQuant()}>
+                  <button type="button" onClick={() => this.handleIncrement()}>
                     +
                   </button>
-                  <button type="button" onClick={() => decrementQuanty()}>
+                  <button type="button" onClick={() => this.handleDecrement()}>
                     -
                   </button>
                 </div>
               </div>
-              {/* <button type="button" onClick={() => }>Add to Cart</button> */}
+              <button type="button" onClick={() => {}}>
+                Add to Cart
+              </button>
             </div>
           </div>
         </div>
