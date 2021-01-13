@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import fetchProduct from '../store/product'
+import {fetchProduct} from '../store/singleProduct'
 
 export class SingleProduct extends Component {
   constructor(props) {
@@ -9,32 +9,33 @@ export class SingleProduct extends Component {
       quantity: 1
     }
 
-    this.handleChange = this.handleChange.bind(this)
+    // this.handleChange = this.handleChange.bind(this)
   }
 
-  handleChange(e) {
-    this.setState({
-      [e.target.name]: e.target.value
-    })
-  }
+  // handleChange(e) {
+  //   this.setState({
+  //     [e.target.name]: e.target.value,
+  //   })
+  // }
 
-  incrementQuant() {
-    let quant = document.querySelector('input').innerText
-    quant = quant + 1
-  }
+  // incrementQuant() {
+  //   let quant = document.querySelector('input').innerText
+  //   quant = quant + 1
+  // }
 
   componentDidMount() {
-    this.props.fetchProduct(this.props.match.params.productId)
+    this.props.fetchSingleProduct(this.props.match.params.productId)
   }
 
   render() {
-    const {product} = this.props
-
+    const product = this.props.product
+    console.log(this.props)
+    console.log('what is the product??', product)
     return (
       <div>
         <div className="singleProductContent">
           <div className="singleProductLeftColumn">
-            <img className="productImg" src={this.props.imageUrl} />
+            <img className="productImg" src={product.imageUrl} />
           </div>
           <div className="singleProductCenterColumn">
             <div className="productHeader">
@@ -43,7 +44,7 @@ export class SingleProduct extends Component {
               <p>{product.rating}</p>
             </div>
             <div className="productSpecs">
-              <h2>${this.props.product.price}</h2>
+              <h2>${product.price}</h2>
               <p>{product.modelNumber}</p>
               <p>{product.type}</p>
               <p>{product.condition}</p>
@@ -106,7 +107,7 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    fetchProduct: productId => dispatch(fetchProduct(productId))
+    fetchSingleProduct: productId => dispatch(fetchProduct(productId))
     // addToCart: (product) => dispatch(addToCart(product)),
   }
 }

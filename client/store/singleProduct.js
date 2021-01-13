@@ -10,12 +10,15 @@ const setProduct = product => ({
 
 // Thunk Creator(s)
 
-export const fetchProduct = product => async dispatch => {
-  try {
-    const {data} = await axios.get(`/api/products/${product}`)
-    dispatch(setProduct(data))
-  } catch (error) {
-    console.error('Failed to GET /api/products/productId')
+export const fetchProduct = productId => {
+  return async dispatch => {
+    try {
+      console.log('what really is product', productId)
+      const {data} = await axios.get(`/api/products/${productId}`)
+      dispatch(setProduct(data))
+    } catch (error) {
+      console.error('Failed to GET /api/products/productId')
+    }
   }
 }
 
