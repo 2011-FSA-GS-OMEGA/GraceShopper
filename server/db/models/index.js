@@ -1,6 +1,7 @@
 const User = require('./user')
 const Cart = require('./cart')
 const Product = require('./product')
+const {Session} = require('express-session')
 
 /**
  * If we had any associations to make, this would be a great place to put them!

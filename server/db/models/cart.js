@@ -14,6 +14,10 @@ const Cart = db.define('cart', {
   totalPrice: {
     type: Sequelize.FLOAT,
     defaultValue: 0
+  },
+  isPaid: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
   }
 })
 
@@ -22,13 +26,14 @@ Cart.getUsersCart = async function(userId) {
   try {
     const usersCart = await Cart.findOne({
       where: {
-        userId: userId
-      },
-      include: [
-        {
-          model: Product
-        }
-      ]
+        userId: userId,
+        isPaid: false
+      }
+      // include: [
+      //   {
+      //     model: Product,
+      //   },
+      // ],
     })
     return usersCart
   } catch (err) {
