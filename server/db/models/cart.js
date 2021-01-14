@@ -26,7 +26,8 @@ Cart.getUsersCart = async function(userId) {
   try {
     const usersCart = await Cart.findOne({
       where: {
-        userId: userId
+        userId: userId,
+        isPaid: false
       }
       // include: [
       //   {
