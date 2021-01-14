@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-// import StarRatings from './react-star-ratings'
+import StarRatings from 'react-star-ratings'
 
 import {fetchProduct} from '../store/singleProduct'
 
@@ -47,7 +47,6 @@ export class SingleProduct extends Component {
 
   render() {
     const {product} = this.props
-    console.log(product.description)
     return (
       <div>
         <div className="singleProductContent">
@@ -57,8 +56,12 @@ export class SingleProduct extends Component {
           <div className="singleProductCenterColumn">
             <div className="productHeader">
               <h1>{product.name}</h1>
-              <p>{product.name}</p>
-              <p>{product.rating}</p>
+              <StarRatings
+                rating={product.rating}
+                starRatedColor="gold"
+                numberOfStars={5}
+                name="rating"
+              />
             </div>
             <div className="productSpecs">
               <h2>Price: ${product.price}</h2>
