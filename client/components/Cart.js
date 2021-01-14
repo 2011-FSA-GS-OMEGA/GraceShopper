@@ -14,12 +14,14 @@ class Cart extends React.Component {
       <div>
         <h1>Your Items</h1>
         <form onSubmit>
-          {/* loop with each item */}
-          <label htmlFor="quantity">Quantity:</label>
-          <input name="quantity" type="number" />
-          <button type="button" onClick>
-            Remove
-          </button>
+          <div id="cart-item">
+            {/* loop with each item */}
+            <label htmlFor="quantity">Quantity:</label>
+            <input name="quantity" type="number" />
+            <button type="button" onClick>
+              Remove
+            </button>
+          </div>
 
           <button type="submit">Checkout</button>
         </form>
