@@ -13,7 +13,6 @@ const setProduct = product => ({
 export const fetchProduct = productId => {
   return async dispatch => {
     try {
-      console.log('what really is product', productId)
       const {data} = await axios.get(`/api/products/${productId}`)
       dispatch(setProduct(data))
     } catch (error) {

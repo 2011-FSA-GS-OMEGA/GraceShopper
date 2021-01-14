@@ -1,8 +1,9 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import StarRatings from 'react-star-ratings'
+// import StarRatings from 'react-star-ratings'
 
 import {fetchProduct} from '../store/singleProduct'
+import {postProduct} from '../store/product'
 
 const defaultState = {
   quantity: 1
@@ -16,6 +17,7 @@ export class SingleProduct extends Component {
     this.handleChange = this.handleChange.bind(this)
     this.handleIncrement = this.handleIncrement.bind(this)
     this.handleDecrement = this.handleDecrement.bind(this)
+    this.handleClick = this.handleClick.bind(this)
   }
 
   handleChange(e) {
@@ -41,8 +43,13 @@ export class SingleProduct extends Component {
       })
   }
 
+  handleClick(id) {
+    this.props.addToCart(id)
+  }
+
   componentDidMount() {
     this.props.fetchSingleProduct(this.props.match.params.productId)
+    this.props.addToCart(this.props.match.params.productId)
   }
 
   render() {
@@ -56,12 +63,12 @@ export class SingleProduct extends Component {
           <div className="singleProductCenterColumn">
             <div className="productHeader">
               <h1>{product.name}</h1>
-              <StarRatings
+              {/* <StarRatings
                 rating={product.rating}
                 starRatedColor="gold"
                 numberOfStars={5}
                 name="rating"
-              />
+              /> */}
             </div>
             <div className="productSpecs">
               <h2>Price: ${product.price}</h2>
@@ -103,7 +110,12 @@ export class SingleProduct extends Component {
                   </button>
                 </div>
               </div>
-              <button type="button" onClick={() => {}}>
+              <button
+                type="button"
+                onClick={() => {
+                  this.handleClick(product.id)
+                }}
+              >
                 Add to Cart
               </button>
             </div>
@@ -134,13 +146,15 @@ export class SingleProduct extends Component {
 }
 
 const mapState = state => {
-  return {product: state.singleProductReducer}
+  return {
+    product: state.singleProductReducer
+  }
 }
 
 const mapDispatch = dispatch => {
   return {
-    fetchSingleProduct: productId => dispatch(fetchProduct(productId))
-    // addToCart: (product) => dispatch(addToCart(product)),
+    fetchSingleProduct: productId => dispatch(fetchProduct(productId)),
+    addToCart: productId => dispatch(postProduct(productId))
   }
 }
 
