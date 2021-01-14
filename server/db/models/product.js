@@ -26,8 +26,11 @@ const Product = db.define('product', {
     defaultValue: 'new'
   },
   rating: {
-    type: Sequelize.ENUM('0', '1', '2', '3', '4', '5'),
-    defaultValue: '0'
+    type: Sequelize.INTEGER,
+    defaultValue: 0,
+    validate: {
+      isIn: [[0, 1, 2, 3, 4, 5]]
+    }
   },
   stock: {
     type: Sequelize.INTEGER

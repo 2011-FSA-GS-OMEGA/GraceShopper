@@ -19,3 +19,15 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+
+.singleProductContent {
+  display: flex;
+}
+
+.quantityBox {
+  display: flex;
+}
+
+.quantityButtons button {
+  width: 100%;
+}
