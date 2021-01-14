@@ -8,7 +8,7 @@ let itemArray = []
 class Cart extends React.Component {
   constructor() {
     super()
-    this.state = itemArray
+    this.state = {}
   }
   componentDidMount() {
     this.props.fetchCart()
@@ -16,14 +16,14 @@ class Cart extends React.Component {
   render() {
     const {cart} = this.props
     // Doesn't work properly
-    const products = cart.product || {}
-    console.log(products)
+    // const products = cart.product || {}
+    // console.log(products)
     return (
       <div>
         <h1>Your Items</h1>
-        {/* Doesn't work properly */}
         <h1>{cart.quantity}</h1>
-        {products ? <h1>{products.Hello}</h1> : <h1>Empty</h1>}
+        {/* Doesn't work properly */}
+        {cart.quantity !== 0 ? <h1>{cart.quantity}</h1> : <h1>Empty</h1>}
         <form onSubmit>
           <div id="cart-item">
             {/* loop with each item */}
