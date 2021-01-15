@@ -12,25 +12,13 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-// POST /api/cart
-// router.post('/', async (req, res, next) => {
-//   try {
-//     const cart = await Cart.create(req.body, {
-
-//       userId: req.params.id,
-
-//     })
-//     res.send(cart)
-//   } catch (err) {
-//     next(err)
-//   }
-// })
-
-// PUT /api/cart
-// router.put('/:id', async (req, res, next) => {
-//   try {
-//     const item = await Product.
-//   } catch (err){
-//     next(err);
-//   }
-// })
+// -- PUT -- Cart already exist so you're updating what's in the cart
+router.put('/', async (req, res, next) => {
+  try {
+    const cart = await Cart.findByPk(req.body.id) // id field on data object coming back
+    await cart.update(req.body)
+    res.sendStatus(200)
+  } catch (error) {
+    next(error)
+  }
+})
