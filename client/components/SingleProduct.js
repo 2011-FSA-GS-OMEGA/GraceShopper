@@ -1,9 +1,10 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-// import StarRatings from 'react-star-ratings'
+import StarRatings from 'react-star-ratings'
 
 import {fetchProduct} from '../store/singleProduct'
 import {postProduct} from '../store/product'
+import {addToCart} from '../store/cart'
 
 const defaultState = {
   quantity: 1
@@ -43,13 +44,12 @@ export class SingleProduct extends Component {
       })
   }
 
-  handleClick(id) {
-    this.props.addToCart(id)
+  handleClick(product, quantity) {
+    this.props.addToCart(product, quantity)
   }
 
   componentDidMount() {
     this.props.fetchSingleProduct(this.props.match.params.productId)
-    this.props.addToCart(this.props.match.params.productId)
   }
 
   render() {
@@ -113,7 +113,7 @@ export class SingleProduct extends Component {
               <button
                 type="button"
                 onClick={() => {
-                  this.handleClick(product.id)
+                  this.handleClick(product, this.state.quantity)
                 }}
               >
                 Add to Cart
@@ -154,7 +154,7 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return {
     fetchSingleProduct: productId => dispatch(fetchProduct(productId)),
-    addToCart: productId => dispatch(postProduct(productId))
+    addToCart: (product, quantity) => dispatch(addToCart(product, quantity))
   }
 }
 
