@@ -38,7 +38,7 @@ export const addToCart = (product, quantity) => {
         data.product[product.id] = quantity
       }
       data.quantity += quantity
-      data.price += product.price * quantity
+      data.totalPrice += product.price * quantity
       await axios.put('/api/cart', data)
       dispatch(addedToCart(data))
     } catch (err) {

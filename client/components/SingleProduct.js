@@ -63,12 +63,12 @@ export class SingleProduct extends Component {
           <div className="singleProductCenterColumn">
             <div className="productHeader">
               <h1>{product.name}</h1>
-              {/* <StarRatings
+              <StarRatings
                 rating={product.rating}
                 starRatedColor="gold"
                 numberOfStars={5}
                 name="rating"
-              /> */}
+              />
             </div>
             <div className="productSpecs">
               <h2>Price: ${product.price}</h2>
