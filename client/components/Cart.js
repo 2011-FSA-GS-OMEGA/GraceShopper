@@ -1,7 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchCart} from '../store/cart'
-import {editCart} from '../store/cart'
+import {fetchCart, editCart, removeFromCart, checkoutCart} from '../store/cart'
 
 class Cart extends React.Component {
   constructor(props) {
@@ -12,7 +11,9 @@ class Cart extends React.Component {
 
     this.handleIncrement = this.handleIncrement.bind(this)
     this.handleDecrement = this.handleDecrement.bind(this)
-    this.handleClick = this.handleClick.bind(this)
+    this.handleEdit = this.handleEdit.bind(this)
+    this.handleRemove = this.handleRemove.bind(this)
+    this.handleCheckout = this.handleCheckout.bind(this)
   }
 
   // Still a little buggy, sometimes changing number manually switches value to string instead of integer
@@ -46,16 +47,33 @@ class Cart extends React.Component {
     }
   }
 
-  handleClick() {}
+  handleEdit(product, quantity) {
+    this.props.editCart(product, quantity)
+  }
+
+  async handleRemove(product, quantity) {
+    await this.props.removeFromCart(product, quantity)
+    this.setState({
+      quantity: Object.values(this.props.cart.product).map(item => {
+        return item[1]
+      })
+    })
+  }
+
+  async handleCheckout() {
+    await this.props.checkoutCart()
+    alert('congrats on your purchase')
+  }
 
   async componentDidMount() {
     await this.props.fetchCart()
     this.setState({
-      quantity: Object.values(this.props.cart.product).map(product => {
-        return product[1]
+      quantity: Object.values(this.props.cart.product).map(item => {
+        return item[1]
       })
     })
   }
+
   render() {
     const {cart} = this.props
     const quantity = cart.quantity || 0
@@ -66,6 +84,8 @@ class Cart extends React.Component {
     return (
       <div className="cart">
         <h1>Your Items</h1>
+        <h2>Total price: ${cart.totalPrice}</h2>
+        <h2>Total number of items: {cart.quantity}</h2>
         {quantity !== 0 ? (
           items.map((product, i) => {
             return (
@@ -73,7 +93,8 @@ class Cart extends React.Component {
                 {console.log(this.state.quantity)}
                 <img src={product[1][0].imageUrl} alt="Picture of Product" />
                 <h3>{product[1][0].name}</h3>
-                <h4>${product[1][0].price}</h4>
+                <h4>{product[1][0].price}</h4>
+                <h4>Amount currently in cart: {product[1][1]}</h4>
                 <div className="itemQuantityBox">
                   <input
                     name={`${i}`}
@@ -99,10 +120,18 @@ class Cart extends React.Component {
                 <button
                   type="button"
                   onClick={() => {
-                    this.handleClick()
+                    this.handleEdit(product[1][0], this.state.quantity[i])
                   }}
                 >
                   Update Quantity
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    this.handleRemove(product[1][0], this.state.quantity[i])
+                  }}
+                >
+                  Remove from Cart
                 </button>
               </div>
             )
@@ -111,17 +140,9 @@ class Cart extends React.Component {
           <h1>Empty</h1>
         )}
 
-        {/* <form onSubmit>
-          <div id="cart-item">
-            <label htmlFor="quantity">Quantity:</label>
-            <input name="quantity" type="number" />
-            <button type="button" onClick>
-              Remove
-            </button>
-          </div> */}
-
-        <button type="submit">Checkout</button>
-        {/* </form> */}
+        <button type="submit" onClick={() => this.handleCheckout()}>
+          Checkout
+        </button>
       </div>
     )
   }
@@ -135,7 +156,11 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    fetchCart: () => dispatch(fetchCart())
+    fetchCart: () => dispatch(fetchCart()),
+    editCart: (product, quantity) => dispatch(editCart(product, quantity)),
+    removeFromCart: (product, quantity) =>
+      dispatch(removeFromCart(product, quantity)),
+    checkoutCart: () => dispatch(checkoutCart())
   }
 }
 
