@@ -22,6 +22,7 @@ export class SingleProduct extends Component {
   }
 
   handleChange(e) {
+    console.log(this.state.quantity)
     this.setState({
       [e.target.name]: e.target.value
     })
