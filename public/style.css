@@ -31,3 +31,18 @@ form div {
 .quantityButtons button {
   width: 100%;
 }
+
+/* All Products */
+.card-image {
+  width: 250px;
+  height: 250px;
+}
+
+.component-body-products-list {
+  display: flex;
+  justify-content: space-between;
+}
+
+.component-header h1 {
+  text-decoration: underline;
+}
