@@ -2,6 +2,7 @@ import axios from 'axios'
 
 const SET_CART = 'SET_CART'
 const ADD_TO_CART = 'ADD_TO_CART'
+const EDIT_CART = 'EDIT_CART'
 const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
 
 const setCart = cart => {
@@ -14,6 +15,13 @@ const setCart = cart => {
 const addedToCart = cart => {
   return {
     type: ADD_TO_CART,
+    cart
+  }
+}
+
+const editedCart = cart => {
+  return {
+    type: EDIT_CART,
     cart
   }
 }
@@ -55,6 +63,28 @@ export const addToCart = (product, quantity) => {
   }
 }
 
+export const editCart = (product, quantity) => {
+  return async dispatch => {
+    try {
+      const {data} = await axios.get('/api/cart')
+      if (data.product[product.id] < quantity) {
+        let diffGreater = quantity - data.product[product.id]
+        data.quantity += diffGreater
+        data.totalPrice += diffGreater * product.price
+      } else if (data.product[product.id] > quantity) {
+        let diffLesser = data.product[product.id] - quantity
+        data.quantity -= diffLesser
+        data.totalPrice -= diffLesser * product.price
+      }
+      data.product[product.id] = quantity
+      await axios.put('/api/cart', data)
+      dispatch(editedCart(data))
+    } catch (err) {
+      console.error(err)
+    }
+  }
+}
+
 export const removeFromCart = (product, quantity) => {
   return async dispatch => {
     try {
@@ -77,6 +107,8 @@ export default function cartReducer(state = initialState, action) {
     case SET_CART:
       return action.cart
     case ADD_TO_CART:
+      return action.cart
+    case EDIT_CART:
       return action.cart
     case REMOVE_FROM_CART:
       return action.cart
