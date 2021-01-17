@@ -92,7 +92,7 @@ export class SingleProduct extends Component {
           </div>
           <div className="singleProductRightColumn">
             <div>
-              <h2>${product.price}</h2>
+              <h2>Add to Cart</h2>
             </div>
             <div>
               <div className="quantityBox">
