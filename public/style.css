@@ -55,4 +55,15 @@ h1 {
 
 .navbar {
   background-color: skyblue;
+  display: flex;
+}
+
+/* SingleProduct */
+.singleProductContent {
+  display: flex;
+  justify-content: space-evenly;
+}
+.singleProductContent img {
+  height: 400px;
+  width: 400px;
 }
