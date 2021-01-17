@@ -31,3 +31,39 @@ form div {
 .quantityButtons button {
   width: 100%;
 }
+
+/* All Products */
+.card-image {
+  width: 250px;
+  height: 250px;
+}
+
+.component-body-products-list {
+  display: flex;
+  justify-content: space-between;
+}
+
+.component-header h1 {
+  text-decoration: underline;
+}
+
+/* Navbar */
+h1 {
+  font-family: Chalkduster, fantasy;
+  font-variant: small-caps;
+}
+
+.navbar {
+  background-color: skyblue;
+  display: flex;
+}
+
+/* SingleProduct */
+.singleProductContent {
+  display: flex;
+  justify-content: space-evenly;
+}
+.singleProductContent img {
+  height: 400px;
+  width: 400px;
+}
