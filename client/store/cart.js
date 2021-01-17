@@ -33,9 +33,9 @@ export const addToCart = (product, quantity) => {
     try {
       const {data} = await axios.get('/api/cart')
       if (data.product[product.id]) {
-        data.product[product.id] += quantity
+        data.product[product.id][1] += quantity
       } else {
-        data.product[product.id] = quantity
+        data.product[product.id] = [product, quantity]
       }
       data.quantity += quantity
       data.totalPrice += product.price * quantity
