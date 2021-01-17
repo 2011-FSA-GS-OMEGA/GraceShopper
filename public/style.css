@@ -46,3 +46,13 @@ form div {
 .component-header h1 {
   text-decoration: underline;
 }
+
+/* Navbar */
+h1 {
+  font-family: Chalkduster, fantasy;
+  font-variant: small-caps;
+}
+
+.navbar {
+  background-color: skyblue;
+}
