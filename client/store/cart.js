@@ -4,6 +4,7 @@ const SET_CART = 'SET_CART'
 const ADD_TO_CART = 'ADD_TO_CART'
 const EDIT_CART = 'EDIT_CART'
 const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
+const CHECKOUT_CART = 'CHECKOUT_CART'
 
 const setCart = cart => {
   return {
@@ -29,6 +30,13 @@ const editedCart = cart => {
 const removedFromCart = cart => {
   return {
     type: REMOVE_FROM_CART,
+    cart
+  }
+}
+
+const checkedOutCart = cart => {
+  return {
+    type: CHECKOUT_CART,
     cart
   }
 }
@@ -76,7 +84,7 @@ export const editCart = (product, quantity) => {
         data.quantity -= diffLesser
         data.totalPrice -= diffLesser * product.price
       }
-      data.product[product.id] = quantity
+      data.product[product.id][1] = quantity
       await axios.put('/api/cart', data)
       dispatch(editedCart(data))
     } catch (err) {
@@ -100,6 +108,21 @@ export const removeFromCart = (product, quantity) => {
   }
 }
 
+export const checkoutCart = () => {
+  return async dispatch => {
+    try {
+      const {data} = await axios.get('/api/cart')
+      data.isPaid = true
+      await axios.put('/api/cart', data)
+      await axios.post('/api/cart')
+      const {data: newData} = await axios.get('/api/cart')
+      dispatch(setCart(newData))
+    } catch (err) {
+      console.error(err)
+    }
+  }
+}
+
 const initialState = {}
 
 export default function cartReducer(state = initialState, action) {
@@ -111,6 +134,8 @@ export default function cartReducer(state = initialState, action) {
     case EDIT_CART:
       return action.cart
     case REMOVE_FROM_CART:
+      return action.cart
+    case CHECKOUT_CART:
       return action.cart
     default:
       return state

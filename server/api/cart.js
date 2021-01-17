@@ -22,3 +22,14 @@ router.put('/', async (req, res, next) => {
     next(error)
   }
 })
+
+router.post('/', async (req, res, next) => {
+  try {
+    await Cart.create({
+      userId: req.user.id
+    })
+    res.sendStatus(201)
+  } catch (err) {
+    next(err)
+  }
+})
