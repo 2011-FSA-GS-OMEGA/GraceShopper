@@ -56,15 +56,24 @@ form div {
 
 /* Navbar */
 #navbar-header {
-  background-color: lightgray;
+  background-color: slategray;
   padding: 5px;
   margin: 5px;
 }
 
 #navbar-header h1 {
   padding: 5px;
-  text-align: center;
   font-size: 50px;
+  color: darkmagenta;
+}
+
+#navbar-header img {
+  height: 100px;
+  width: 100px;
+  margin: 20px;
+}
+.navbar-title {
+  display: flex;
 }
 
 h1 {
@@ -73,7 +82,7 @@ h1 {
 }
 
 .navbar {
-  background-color: skyblue;
+  background-color: darksalmon;
   display: flex;
 }
 
@@ -87,7 +96,11 @@ h1 {
 .singleProductContent img {
   height: 400px;
   width: 400px;
-  margin: 20px;
+  margin: 30px;
+}
+
+.singleProductRightColumn {
+  margin: 30px;
 }
 
 /* Cart Component */
