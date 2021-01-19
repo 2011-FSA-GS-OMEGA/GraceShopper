@@ -1,10 +1,10 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import StarRatings from 'react-star-ratings'
-
+import {addToGuestCart} from '../store/guestCart'
 import {fetchProduct} from '../store/singleProduct'
-import {postProduct} from '../store/product'
-import {addToCart} from '../store/cart'
+import {addToCart, fetchCart} from '../store/cart'
+import {me} from '../store/user'
 
 const defaultState = {
   quantity: 1
@@ -46,15 +46,21 @@ export class SingleProduct extends Component {
   }
 
   handleClick(product, quantity) {
-    this.props.addToCart(product, quantity)
+    if (this.props.user.id) {
+      this.props.addToCart(product, quantity)
+    } else {
+      this.props.addToGuestCart(product, quantity)
+    }
   }
 
   componentDidMount() {
     this.props.fetchSingleProduct(this.props.match.params.productId)
+    this.props.me()
   }
 
   render() {
     const {product} = this.props
+    console.log(this.props)
     return (
       <div>
         <div className="singleProductContent">
@@ -148,14 +154,19 @@ export class SingleProduct extends Component {
 
 const mapState = state => {
   return {
-    product: state.singleProductReducer
+    product: state.singleProductReducer,
+    user: state.user
   }
 }
 
 const mapDispatch = dispatch => {
   return {
     fetchSingleProduct: productId => dispatch(fetchProduct(productId)),
-    addToCart: (product, quantity) => dispatch(addToCart(product, quantity))
+    addToCart: (product, quantity) => dispatch(addToCart(product, quantity)),
+    fetchCart: () => dispatch(fetchCart()),
+    me: () => dispatch(me()),
+    addToGuestCart: (product, quantity) =>
+      dispatch(addToGuestCart(product, quantity))
   }
 }
 
