@@ -84,7 +84,7 @@ class Cart extends React.Component {
       items = Object.entries(cart.product)
     }
     return (
-      <div>
+      <div className="cart">
         <h1>Your Items</h1>
         <h2>Total price: ${cart.totalPrice}</h2>
         <h2>Total number of items: {cart.quantity}</h2>
@@ -95,7 +95,7 @@ class Cart extends React.Component {
                 {console.log(this.state.quantity)}
                 <img src={product[1][0].imageUrl} alt="Picture of Product" />
                 <h3>{product[1][0].name}</h3>
-                <h4>{product[1][0].price}</h4>
+                <h4>${product[1][0].price}</h4>
                 <h4>Amount currently in cart: {product[1][1]}</h4>
                 <div className="itemQuantityBox">
                   <input
