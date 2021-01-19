@@ -1,6 +1,11 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {editGuestCart} from '../store/guestCart'
+import {
+  editGuestCart,
+  getGuestCart,
+  removeFromGuestCart,
+  checkOutGuestCart
+} from '../store/guestCart'
 
 class GuestCart extends React.Component {
   constructor(props) {
@@ -48,34 +53,37 @@ class GuestCart extends React.Component {
   }
 
   handleEdit(product, quantity) {
+    console.log('what really is product?? ->> ', product)
     this.props.editGuestCart(product, quantity)
+    console.log(this.state.props)
   }
 
   async handleRemove(product, quantity) {
-    await this.props.removeFromCart(product, quantity)
+    await this.props.removeFromGuestCart(product, quantity)
     this.setState({
-      quantity: Object.values(this.props.cart.product).map(item => {
+      quantity: Object.values(this.props.guestCart.product).map(item => {
         return item[1]
       })
     })
   }
 
   async handleCheckout() {
-    await this.props.checkoutCart()
+    await this.props.checkOutGuestCart()
     alert('congrats on your purchase')
   }
 
-  componentDidMount() {
-    let guestCart = JSON.parse(window.sessionStorage.getItem('guestCart'))
+  async componentDidMount() {
+    await this.props.getGuestCart()
+    console.log('what is guest --->', this.props)
     this.setState({
-      quantity: Object.values(guestCart.product).map(item => {
+      quantity: Object.values(this.props.guestCart.product).map(item => {
         return item[1]
       })
     })
   }
 
   render() {
-    let cart = JSON.parse(window.sessionStorage.getItem('guestCart'))
+    let cart = this.props.guestCart
     const quantity = cart.quantity || 0
     let items = null
     if (quantity !== 0) {
@@ -148,14 +156,21 @@ class GuestCart extends React.Component {
   }
 }
 
-const mapDispatch = dispatch => {
+const mapState = state => {
   return {
-    editGuestCart: (product, quantity) =>
-      dispatch(editGuestCart(product, quantity))
-    // removeFromCart: (product, quantity) =>
-    //   dispatch(removeFromCart(product, quantity)),
-    // checkoutCart: () => dispatch(checkoutCart())
+    guestCart: state.guestCartReducer
   }
 }
 
-export default connect(null, mapDispatch)(GuestCart)
+const mapDispatch = dispatch => {
+  return {
+    editGuestCart: (product, quantity) =>
+      dispatch(editGuestCart(product, quantity)),
+    getGuestCart: () => dispatch(getGuestCart()),
+    removeFromGuestCart: (product, quantity) =>
+      dispatch(removeFromGuestCart(product, quantity)),
+    checkOutGuestCart: () => dispatch(checkOutGuestCart())
+  }
+}
+
+export default connect(mapState, mapDispatch)(GuestCart)
