@@ -1,5 +1,6 @@
 body {
   font-family: sans-serif;
+  background-color: whitesmoke;
 }
 
 a {
@@ -38,32 +39,78 @@ form div {
   height: 250px;
 }
 
+.card {
+  font-family: Chalkduster, fantasy;
+}
+
 .component-body-products-list {
   display: flex;
   justify-content: space-between;
+  margin: 20px;
 }
 
 .component-header h1 {
   text-decoration: underline;
+  margin: 20px;
 }
 
 /* Navbar */
+#navbar-header {
+  background-color: slategray;
+  padding: 5px;
+  margin: 5px;
+}
+
+#navbar-header h1 {
+  padding: 5px;
+  font-size: 50px;
+  color: darkmagenta;
+}
+
+#navbar-header img {
+  height: 100px;
+  width: 100px;
+  margin: 20px;
+}
+.navbar-title {
+  display: flex;
+}
+
 h1 {
   font-family: Chalkduster, fantasy;
   font-variant: small-caps;
 }
 
 .navbar {
-  background-color: skyblue;
+  background-color: darksalmon;
   display: flex;
 }
 
 /* SingleProduct */
 .singleProductContent {
   display: flex;
+  margin: 10px;
   justify-content: space-evenly;
+  font-family: Chalkduster, fantasy;
 }
 .singleProductContent img {
   height: 400px;
   width: 400px;
+  margin: 30px;
+}
+
+.singleProductRightColumn {
+  margin: 30px;
+}
+
+/* Cart Component */
+
+.cart img {
+  height: 300px;
+  width: 300px;
+}
+
+.cart {
+  margin: 20px;
+  font-family: Chalkduster, fantasy;
 }

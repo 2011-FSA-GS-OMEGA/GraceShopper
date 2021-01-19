@@ -5,8 +5,14 @@ import {Link} from 'react-router-dom'
 import {logout} from '../store'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
-  <div>
-    <h1>Jellybeans and Shoes</h1>
+  <div id="navbar-header">
+    <div className="navbar-title">
+      <img
+        className="jellybean"
+        src="https://rlv.zcache.com/cutie_cartoon_red_jelly_bean_vinyl_sticker-r3c275299c36c4187b0f782ac3465db98_08m3m_704.jpg?rlvnet=1"
+      />
+      <h1>Jellybeans and Shoes</h1>
+    </div>
     <nav className="navbar">
       {isLoggedIn ? (
         <div>
