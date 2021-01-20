@@ -5,6 +5,7 @@ import {addToGuestCart} from '../store/guestCart'
 import {fetchProduct} from '../store/singleProduct'
 import {addToCart, fetchCart} from '../store/cart'
 import {me} from '../store/user'
+import {ToastContainer, toast} from 'react-toastify'
 
 const defaultState = {
   quantity: 1
@@ -46,6 +47,7 @@ export class SingleProduct extends Component {
   handleClick(product, quantity) {
     if (this.props.user.id) {
       this.props.addToCart(product, quantity)
+      toast('wow so easy!')
     } else {
       this.props.addToGuestCart(product, quantity)
     }
