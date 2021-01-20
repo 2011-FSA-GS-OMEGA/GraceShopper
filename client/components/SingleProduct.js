@@ -105,6 +105,7 @@ export class SingleProduct extends Component {
                 <input
                   name="quantity"
                   type="text"
+                  readOnly
                   value={this.state.quantity}
                   onChange={this.handleChange}
                 />

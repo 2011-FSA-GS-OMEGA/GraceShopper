@@ -99,6 +99,7 @@ class Cart extends React.Component {
                   <input
                     name={`${i}`}
                     type="text"
+                    readOnly
                     value={this.state.quantity[i]}
                     onChange={this.handleChange.bind(this, i)}
                   />
