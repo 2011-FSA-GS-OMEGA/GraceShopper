@@ -152,7 +152,8 @@ class GuestCart extends React.Component {
             pathname: '/checkout',
             state: {
               total: cart.totalPrice,
-              items: cart.quantity
+              items: cart.quantity,
+              orderNum: Math.ceil(Math.random() * 100000)
             }
           }}
         >
