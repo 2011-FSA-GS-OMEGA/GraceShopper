@@ -1,7 +1,5 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-// import StarRatings from 'react-star-ratings'
-
 import StarRatings from 'react-star-ratings'
 import {addToGuestCart} from '../store/guestCart'
 import {fetchProduct} from '../store/singleProduct'
