@@ -24,6 +24,7 @@ const Cart = db.define('cart', {
 // Model functions
 Cart.getUsersCart = async function(userId) {
   try {
+    console.log('userId --->', userId)
     const usersCart = await Cart.findOne({
       where: {
         userId: userId,
@@ -35,6 +36,7 @@ Cart.getUsersCart = async function(userId) {
       //   },
       // ],
     })
+    console.log('usersCart --->', usersCart)
     return usersCart
   } catch (err) {
     console.error(err)

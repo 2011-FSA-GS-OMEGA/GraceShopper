@@ -76,6 +76,8 @@ class Cart extends React.Component {
 
   render() {
     const {cart} = this.props
+    console.log('this.props', this.props)
+    console.log('cart -->', cart)
     const quantity = cart.quantity || 0
     let items = null
     if (quantity !== 0) {

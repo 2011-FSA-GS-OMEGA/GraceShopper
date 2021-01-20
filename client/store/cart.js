@@ -86,6 +86,7 @@ export const editCart = (product, quantity) => {
       }
       data.product[product.id][1] = quantity
       await axios.put('/api/cart', data)
+      console.log('edited data object -->', data)
       dispatch(editedCart(data))
     } catch (err) {
       console.error(err)

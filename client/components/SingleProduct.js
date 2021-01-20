@@ -1,7 +1,9 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
+
 import StarRatings from 'react-star-ratings'
 import {addToGuestCart} from '../store/guestCart'
+
 import {fetchProduct} from '../store/singleProduct'
 import {addToCart, fetchCart} from '../store/cart'
 import {me} from '../store/user'
@@ -14,7 +16,6 @@ export class SingleProduct extends Component {
   constructor(props) {
     super(props)
     this.state = defaultState
-
     this.handleChange = this.handleChange.bind(this)
     this.handleIncrement = this.handleIncrement.bind(this)
     this.handleDecrement = this.handleDecrement.bind(this)
@@ -22,7 +23,6 @@ export class SingleProduct extends Component {
   }
 
   handleChange(e) {
-    console.log(this.state.quantity)
     this.setState({
       [e.target.name]: e.target.value
     })
@@ -70,12 +70,12 @@ export class SingleProduct extends Component {
           <div className="singleProductCenterColumn">
             <div className="productHeader">
               <h1>{product.name}</h1>
-              <StarRatings
+              {/* <StarRatings
                 rating={product.rating}
                 starRatedColor="gold"
                 numberOfStars={5}
                 name="rating"
-              />
+              /> */}
             </div>
             <div className="productSpecs">
               <h2>Price: ${product.price}</h2>
