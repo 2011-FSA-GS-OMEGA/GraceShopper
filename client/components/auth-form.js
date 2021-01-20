@@ -7,22 +7,36 @@ import {auth} from '../store'
  * COMPONENT
  */
 const AuthForm = props => {
-  const {name, displayName, handleSubmit, error} = props
+  const {name, displayName, handleSubmit, handleCreateSubmit, error} = props
 
   return (
     <div>
-      <form onSubmit={handleSubmit} name={name}>
+      <div>{name === 'signup' ? <h1>Sign up</h1> : <h1>Login</h1>}</div>
+      <form
+        onSubmit={name === 'signup' ? handleCreateSubmit : handleSubmit}
+        name={name}
+      >
         <div>
           <label htmlFor="email">
             <small>Email</small>
           </label>
-          <input name="email" type="text" />
+          <input name="email" type="email" />
         </div>
         <div>
           <label htmlFor="password">
             <small>Password</small>
           </label>
           <input name="password" type="password" />
+        </div>
+        <div>
+          {props.name === 'signup' ? (
+            <div>
+              <label htmlFor="confirmPassword">
+                <small>Confirm Password</small>
+              </label>
+              <input name="confirmPassword" type="password" />
+            </div>
+          ) : null}
         </div>
         <div>
           <button type="submit">{displayName}</button>
@@ -65,6 +79,17 @@ const mapDispatch = dispatch => {
       const email = evt.target.email.value
       const password = evt.target.password.value
       dispatch(auth(email, password, formName))
+    },
+    handleCreateSubmit(evt) {
+      evt.preventDefault()
+      const formName = evt.target.name
+      const email = evt.target.email.value
+      const password = evt.target.password.value
+      if (evt.target.confirmPassword.value === password) {
+        dispatch(auth(email, password, formName))
+      } else {
+        alert('Passwords do not match')
+      }
     }
   }
 }
