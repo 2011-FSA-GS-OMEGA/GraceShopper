@@ -17,11 +17,12 @@ router.get('/', async (req, res, next) => {
 // -- PUT -- Cart already exist so you're updating what's in the cart
 router.put('/', async (req, res, next) => {
   try {
-    console.log('req.body --->', req.body) // users cart // vulnerability -- middleware? use req.user?
+    console.log('req.body OR cart --->', req.body) // users cart // vulnerability -- middleware? use req.user?
     console.log('req.user --->', req.user) // user
-    const cart = await Cart.findByPk(req.body.id) // id field on data object coming back
+
+    const cart = await Cart.getUsersCart(req.user.id)
     await cart.update(req.body)
-    console.log('modified cart --->', cart)
+    console.log('mod.body OR cart --->', cart)
     res.sendStatus(200)
   } catch (error) {
     next(error)
