@@ -3,7 +3,14 @@ import {connect} from 'react-redux'
 
 class Checkout extends React.Component {
   render() {
-    return <h1>Purchase Successful!</h1>
+    const {total, items} = this.props.location.state
+    return (
+      <div id="check-out-view">
+        <h1>Purchase Successful!</h1>
+        <h2>Total: ${total}</h2>
+        <h2>{items} Items</h2>
+      </div>
+    )
   }
 }
 
