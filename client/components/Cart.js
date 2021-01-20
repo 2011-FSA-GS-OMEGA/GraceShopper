@@ -147,7 +147,8 @@ class Cart extends React.Component {
             pathname: '/usercheckout',
             state: {
               total: cart.totalPrice,
-              items: cart.quantity
+              items: cart.quantity,
+              orderNum: Math.ceil(Math.random() * 100000)
             }
           }}
         >

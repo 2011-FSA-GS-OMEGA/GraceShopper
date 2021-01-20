@@ -22,7 +22,7 @@ router.post('/login', async (req, res, next) => {
         } else {
           browserCart.product[item[0].id] = item
         }
-        browserCart.totalPrice += item[1] * item[0].totalPrice
+        browserCart.totalPrice += item[1] * item[0].price
         browserCart.quantity += item[1]
       })
       await cart.update(browserCart)
