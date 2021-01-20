@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const {Cart, Product, User} = require('../db/models')
+
 module.exports = router
 
 // GET /api/cart
@@ -16,7 +17,8 @@ router.get('/', async (req, res, next) => {
 // -- PUT -- Cart already exist so you're updating what's in the cart
 router.put('/', async (req, res, next) => {
   try {
-    console.log('req.body --->', req.body)
+    console.log('req.body --->', req.body) // users cart // vulnerability -- middleware? use req.user?
+    console.log('req.user --->', req.user) // user
     const cart = await Cart.findByPk(req.body.id) // id field on data object coming back
     await cart.update(req.body)
     console.log('modified cart --->', cart)
