@@ -6,6 +6,7 @@ import {
   removeFromGuestCart,
   checkOutGuestCart
 } from '../store/guestCart'
+import {Link} from 'react-router-dom'
 
 class GuestCart extends React.Component {
   constructor(props) {
@@ -53,7 +54,6 @@ class GuestCart extends React.Component {
   }
 
   handleEdit(product, quantity) {
-    console.log('what really is product?? ->> ', product)
     this.props.editGuestCart(product, quantity)
     console.log(this.state.props)
   }
@@ -69,7 +69,6 @@ class GuestCart extends React.Component {
 
   async handleCheckout() {
     await this.props.checkOutGuestCart()
-    alert('congrats on your purchase')
   }
 
   async componentDidMount() {
@@ -148,10 +147,19 @@ class GuestCart extends React.Component {
         ) : (
           <h1>Empty</h1>
         )}
-
-        <button type="submit" onClick={() => this.handleCheckout()}>
-          Checkout
-        </button>
+        <Link
+          to={{
+            pathname: '/checkout',
+            state: {
+              total: cart.totalPrice,
+              items: cart.quantity
+            }
+          }}
+        >
+          <button type="submit" onClick={() => this.handleCheckout()}>
+            Checkout
+          </button>
+        </Link>
       </div>
     )
   }

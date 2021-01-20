@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {fetchCart, editCart, removeFromCart, checkoutCart} from '../store/cart'
+import {Link} from 'react-router-dom'
 
 class Cart extends React.Component {
   constructor(props) {
@@ -62,7 +63,6 @@ class Cart extends React.Component {
 
   async handleCheckout() {
     await this.props.checkoutCart()
-    alert('congrats on your purchase')
   }
 
   async componentDidMount() {
@@ -142,10 +142,19 @@ class Cart extends React.Component {
         ) : (
           <h1>Empty</h1>
         )}
-
-        <button type="submit" onClick={() => this.handleCheckout()}>
-          Checkout
-        </button>
+        <Link
+          to={{
+            pathname: '/usercheckout',
+            state: {
+              total: cart.totalPrice,
+              items: cart.quantity
+            }
+          }}
+        >
+          <button type="submit" onClick={() => this.handleCheckout()}>
+            Checkout
+          </button>
+        </Link>
       </div>
     )
   }
